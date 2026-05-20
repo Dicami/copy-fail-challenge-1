@@ -32,7 +32,7 @@ cd "$KERNEL_SRC"
 echo ""
 echo -e "${CYAN}[2/5] Guardando hash del commit vulnerable (evidencia)...${NC}"
 VULN_HASH=$(git rev-parse HEAD)
-echo "$VULN_HASH" > /workspaces/copy-fail-challenge/kernel/vuln_commit.txt
+echo "$VULN_HASH" > /workspaces/copy-fail-challenge-1/kernel/vuln_commit.txt
 echo "  Hash: $VULN_HASH"
 
 echo ""
@@ -58,6 +58,10 @@ scripts/config --enable INET
 scripts/config --enable CRYPTO
 scripts/config --enable CRYPTO_USER_API        # AF_ALG base
 scripts/config --enable CRYPTO_USER_API_AEAD   # algif_aead  ← VULNERABLE
+    scripts/config --enable CRYPTO_AUTHENC
+    scripts/config --enable CRYPTO_AUTHENCESN
+    scripts/config --enable MODULES
+    scripts/config --enable MODULE_UNLOAD
 scripts/config --enable CRYPTO_USER_API_SKCIPHER
 scripts/config --enable CRYPTO_AUTHENCESN      # el template que escribe de más
 scripts/config --enable CRYPTO_AES
